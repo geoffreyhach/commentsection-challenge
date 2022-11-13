@@ -14,7 +14,7 @@ function Replies({ data }) {
             </Box>
             <Stack spacing={2} sx={{ maxWidth: "90%", margin: "auto" }}>
                 {data.map((reply) => (
-                    <CommentItem data={reply} />
+                    <CommentItem key={reply.id} data={reply} />
                 ))}
             </Stack>
         </Box>
