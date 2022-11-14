@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Box, Button, TextField } from "@mui/material";
 
-function AddComment({ user, comments, setComments }) {
+function AddComment({
+    user,
+    comments,
+    setComments,
+    value = "",
+    isReplying,
+    setIsReplying,
+}) {
     const [comment, setComment] = useState({
         id: 1,
         content: "",
@@ -16,11 +23,35 @@ function AddComment({ user, comments, setComments }) {
         setComment((prevState) => ({ ...prevState, user: user }));
     }, [user]);
 
+    const ref = useRef();
+
+    useEffect(() => {
+        ref.current.value = `${value} `;
+        ref.current.focus();
+        setComment((prevState) => ({ ...prevState, content: value }));
+    }, [value]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setComment((prevState) => ({ ...prevState, id: new Date() }));
-        setComments([...comments, comment]);
+        if (!isReplying) postComment();
+        if (isReplying) postReply(isReplying.id);
         e.target.reset();
+    };
+
+    const postComment = () => {
+        setComments([...comments, comment]);
+    };
+
+    const postReply = (id) => {
+        setComments([
+            ...comments.map((item) => {
+                if (item.id === id) {
+                    item.replies.push(comment);
+                    return item;
+                } else return item;
+            }),
+        ]);
+        setIsReplying(false);
     };
 
     return (
@@ -31,12 +62,15 @@ function AddComment({ user, comments, setComments }) {
                     fullWidth
                     multiline
                     rows={4}
+                    inputRef={ref}
                     label="Your comment..."
                     id="commentinput"
                     onChange={(e) =>
                         setComment((prevState) => ({
                             ...prevState,
                             content: e.target.value,
+                            createdAt: "à l'instant",
+                            id: new Date().valueOf(),
                         }))
                     }
                 />

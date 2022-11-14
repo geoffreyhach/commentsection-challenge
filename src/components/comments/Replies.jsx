@@ -2,7 +2,15 @@ import { Box, Divider, Stack } from "@mui/material";
 import React from "react";
 import CommentItem from "./CommentItem";
 
-function Replies({ data }) {
+function Replies({
+    data,
+    isReplying,
+    setIsReplying,
+    comments,
+    setComments,
+    user,
+    originalId,
+}) {
     return (
         <Box display="flex" justifyContent="space-evenly">
             <Box
@@ -12,9 +20,22 @@ function Replies({ data }) {
             >
                 <Divider orientation="vertical" />
             </Box>
-            <Stack spacing={2} sx={{ maxWidth: "90%", margin: "auto" }}>
+            <Stack
+                spacing={2}
+                sx={{ maxWidth: "90%", minWidth: "90%", margin: "auto" }}
+            >
                 {data.map((reply) => (
-                    <CommentItem key={reply.id} data={reply} />
+                    <CommentItem
+                        key={reply.id}
+                        data={reply}
+                        isReplying={isReplying}
+                        setIsReplying={setIsReplying}
+                        setComments={setComments}
+                        comments={comments}
+                        user={user}
+                        originalId={originalId}
+                        isReply
+                    />
                 ))}
             </Stack>
         </Box>

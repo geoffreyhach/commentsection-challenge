@@ -7,6 +7,7 @@ import AddComment from "../AddComment";
 function CommentsSection() {
     const [comments, setComments] = useState([]);
     const [currentUser, setCurrentUSer] = useState({});
+    const [isReplying, setIsReplying] = useState(false);
 
     useEffect(() => {
         setComments(Data.comments);
@@ -33,7 +34,11 @@ function CommentsSection() {
                     <Comment
                         key={comment.id}
                         data={comment}
+                        user={currentUser}
+                        comments={comments}
                         setComments={setComments}
+                        isReplying={isReplying}
+                        setIsReplying={setIsReplying}
                     />
                 );
             })}
