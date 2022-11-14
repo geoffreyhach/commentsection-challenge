@@ -4,41 +4,31 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 function Score({ id, score, setComments }) {
-    const [isUpped, setIsUpped] = useState(false);
-    const [isDowned, setIsDowned] = useState(false);
+    const [totalVotes, setTotalVotes] = useState(score);
     const upRef = useRef(null);
     const downRef = useRef();
 
-    //TODO : revoir logique de la desactivation des boutons
+    useEffect(() => {
+        console.log("score", +score);
+        console.log("votes", +totalVotes);
+        if (totalVotes < score)
+            return downRef.current.classList.add("Mui-disabled");
+        if (totalVotes > score)
+            return upRef.current.classList.add("Mui-disabled");
+        if (totalVotes === score) {
+            upRef.current.classList.remove("Mui-disabled");
+            downRef.current.classList.remove("Mui-disabled");
+        }
+    }, [totalVotes, score]);
 
     const handleUpVote = () => {
-        setIsUpped((prevState) => !prevState);
-
-        if (isUpped === true) upRef.current.classList.add("Mui-disabled");
-        downRef.current.classList.remove("Mui-disabled");
-        setComments((prevState) =>
-            prevState.map((comment) => {
-                if (Number(comment.id) === Number(id))
-                    return { ...comment, score: score + 1 };
-                else return comment;
-            })
-        );
+        setTotalVotes(totalVotes + 1);
     };
 
     const handleDownVote = () => {
-        setIsDowned(true);
-
-        downRef.current.classList.add("Mui-disabled");
-        upRef.current.classList.remove("Mui-disabled");
-
-        setComments((prevState) =>
-            prevState.map((comment) => {
-                if (Number(comment.id) === Number(id))
-                    return { ...comment, score: score - 1 };
-                else return comment;
-            })
-        );
+        setTotalVotes(totalVotes - 1);
     };
+
     return (
         <Box sx={{ padding: "0rem .5rem" }}>
             <Box
@@ -48,13 +38,13 @@ function Score({ id, score, setComments }) {
                 sx={{
                     backgroundColor: "lightblue",
                     borderRadius: "10px",
-                    padding: ".2rem",
+                    padding: "0",
                 }}
             >
                 <IconButton ref={upRef} onClick={handleUpVote}>
                     <KeyboardArrowUpIcon />
                 </IconButton>
-                <Typography>{score}</Typography>
+                <Typography>{totalVotes}</Typography>
                 <IconButton ref={downRef} onClick={handleDownVote}>
                     <KeyboardArrowDownIcon />
                 </IconButton>
