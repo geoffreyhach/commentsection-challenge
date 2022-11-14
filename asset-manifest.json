@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/commentsection-challenge/static/js/main.e4b1c0c5.js",
-    "index.html": "/commentsection-challenge/index.html",
-    "main.e4b1c0c5.js.map": "/commentsection-challenge/static/js/main.e4b1c0c5.js.map"
+    "main.js": "./static/js/main.e4b1c0c5.js",
+    "index.html": "./index.html",
+    "main.e4b1c0c5.js.map": "./static/js/main.e4b1c0c5.js.map"
   },
   "entrypoints": [
     "static/js/main.e4b1c0c5.js"
