@@ -8,6 +8,7 @@ function App() {
             justifyContent="center"
             alignItems="center"
             minHeight="100vh"
+            component="main"
         >
             <CommentsSection />
         </Box>
