@@ -57,7 +57,11 @@ function AddComment({
     return (
         <form onSubmit={handleSubmit}>
             <Box display="flex" alignItems="start" gap="1rem">
-                {user.image ? <Avatar src={user.image.png} /> : ""}
+                {user.image ? (
+                    <Avatar alt={user.username} src={user.image.png} />
+                ) : (
+                    ""
+                )}
                 <TextField
                     fullWidth
                     multiline

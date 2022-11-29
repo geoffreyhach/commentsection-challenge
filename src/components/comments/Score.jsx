@@ -40,11 +40,17 @@ function Score({ id, score, setComments }) {
                     padding: "0",
                 }}
             >
-                <IconButton data-cy="upvote" ref={upRef} onClick={handleUpVote}>
+                <IconButton
+                    aria-label="upvote"
+                    data-cy="upvote"
+                    ref={upRef}
+                    onClick={handleUpVote}
+                >
                     <AddIcon />
                 </IconButton>
                 <Typography data-cy="score">{totalVotes}</Typography>
                 <IconButton
+                    aria-label="downvote"
                     data-cy="downvote"
                     ref={downRef}
                     onClick={handleDownVote}
