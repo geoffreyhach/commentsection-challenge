@@ -65,6 +65,7 @@ function AddComment({
                     inputRef={ref}
                     label="Your comment..."
                     id="commentinput"
+                    data-cy="comment-input"
                     onChange={(e) =>
                         setComment((prevState) => ({
                             ...prevState,
@@ -74,8 +75,12 @@ function AddComment({
                         }))
                     }
                 />
-                <Button type="submit" variant="contained">
-                    Envoyer
+                <Button
+                    type="submit"
+                    variant="contained"
+                    data-cy="post-comment-btn"
+                >
+                    {isReplying ? "Reply" : "Send"}
                 </Button>
             </Box>
         </form>

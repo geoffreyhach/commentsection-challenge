@@ -10,7 +10,10 @@ function CommentsSection() {
     const [isReplying, setIsReplying] = useState(false);
 
     useEffect(() => {
-        setComments(Data.comments);
+        setComments(
+            JSON.parse(window.localStorage.getItem("COMMENTS")) || Data.comments
+        );
+
         setCurrentUSer({
             username: Data.currentUser.username,
             image: {
@@ -19,6 +22,11 @@ function CommentsSection() {
             },
         });
     }, []);
+
+    useEffect(() => {
+        if (comments.length !== 0)
+            window.localStorage.setItem("COMMENTS", JSON.stringify(comments));
+    }, [comments]);
 
     return (
         <Stack

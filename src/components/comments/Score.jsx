@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 function Score({ id, score, setComments }) {
     const [totalVotes, setTotalVotes] = useState(score);
@@ -9,8 +9,6 @@ function Score({ id, score, setComments }) {
     const downRef = useRef();
 
     useEffect(() => {
-        console.log("score", +score);
-        console.log("votes", +totalVotes);
         if (totalVotes < score)
             return downRef.current.classList.add("Mui-disabled");
         if (totalVotes > score)
@@ -32,6 +30,7 @@ function Score({ id, score, setComments }) {
     return (
         <Box sx={{ padding: "0rem .5rem" }}>
             <Box
+                data-cy="scores-comp"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -41,12 +40,16 @@ function Score({ id, score, setComments }) {
                     padding: "0",
                 }}
             >
-                <IconButton ref={upRef} onClick={handleUpVote}>
-                    <KeyboardArrowUpIcon />
+                <IconButton data-cy="upvote" ref={upRef} onClick={handleUpVote}>
+                    <AddIcon />
                 </IconButton>
-                <Typography>{totalVotes}</Typography>
-                <IconButton ref={downRef} onClick={handleDownVote}>
-                    <KeyboardArrowDownIcon />
+                <Typography data-cy="score">{totalVotes}</Typography>
+                <IconButton
+                    data-cy="downvote"
+                    ref={downRef}
+                    onClick={handleDownVote}
+                >
+                    <RemoveIcon />
                 </IconButton>
             </Box>
         </Box>

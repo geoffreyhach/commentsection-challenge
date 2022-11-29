@@ -21,6 +21,7 @@ function Replies({
                 <Divider orientation="vertical" />
             </Box>
             <Stack
+                data-cy="replies"
                 spacing={2}
                 sx={{ maxWidth: "90%", minWidth: "90%", margin: "auto" }}
             >
